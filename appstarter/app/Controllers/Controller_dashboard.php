@@ -5,6 +5,6 @@ use App\Controllers\BaseController;
 class Controller_dashboard extends BaseController{
 
     public function index(){
-        echo "Dashboard";
+        echo view("Admin/dashboard_view");
     }
 }

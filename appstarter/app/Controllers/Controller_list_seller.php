@@ -5,6 +5,6 @@ use App\Controllers\BaseController;
 class Controller_list_seller extends BaseController{
 
     public function index(){
-        echo "list of seller";
+        echo view("Admin/list-seller_view");
     }
 }

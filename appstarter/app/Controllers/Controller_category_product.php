@@ -5,6 +5,6 @@ use App\Controllers\BaseController;
 class Controller_category_product extends BaseController{
 
     public function index(){
-        echo "Category Product Index";
+        echo view("Admin/category-product_view");
     }
 }
