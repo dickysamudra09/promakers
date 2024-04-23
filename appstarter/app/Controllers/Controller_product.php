@@ -5,6 +5,7 @@ use App\Controllers\BaseController;
 class Controller_product extends BaseController{
 
     public function index(){
-        echo view("Admin/product_view");
+        $data['name'] = "Product";
+        echo view("Admin/product_view", $data);
     }
 }
