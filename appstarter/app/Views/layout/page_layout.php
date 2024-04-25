@@ -13,6 +13,13 @@
         <link rel="stylesheet" type="text/css" href="<?= base_url('Admin/js/select.dataTables.min.css') ?>" />
         <link rel="stylesheet" href="<?= base_url('Admin/css/vertical-layout-light/style.css') ?>" />
         <link rel="shortcut icon" href="<?= base_url('Admin/images/favicon.png') ?>" />
+
+        <script>
+            function confirmToDelete(el){
+                $("#delete-button").attr("href", el.dataset.href);
+                $("#confirm-dialog").modal('show');
+            }
+        </script>
     </head>
     <body>
         <div class="container-scroller">
