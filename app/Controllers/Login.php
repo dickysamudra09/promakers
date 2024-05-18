@@ -18,7 +18,7 @@ class Login extends BaseController
         $session = session();
         $userModel = new UserModel();
  
-        $email = $this->request->getVar('email');
+        $email = $this->request->getVar('email');        
         $password = $this->request->getVar('password');
          
         $user = $userModel->where('email', $email)->first();
@@ -37,17 +37,36 @@ class Login extends BaseController
             'id_user' => $user['id_user'],
             'username' => $user['username'],
             'email' => $user['email'],
-            'roles' => '1',
+            'roles' => $user['roles'],                 
             'isLoggedIn' => TRUE
         ];
- 
-        $session->set($ses_data);        
-        return redirect()->to('/users');
-         
+        // print_r($ses_data);              
+        // exit;
+        $session->set($ses_data); 
+
+        $this->updateSessionData($user);
         
+        return redirect()->to('/users');      
+    }
+
+    public function updateSessionData($user){
+        $session = session();
+        $roles = $user['roles'];
+        if ($user === null) {
+            return;
+        }
+        $new_data = [
+            'roles' => $roles
+        ];
+        $session->set($new_data);
     }
  
     public function logout() {
+        $session = session();
+        $userModel = new UserModel();
+        $email = $session->get('email');
+        $user = $userModel->where('email', $email)->first();    
+        $this->updateSessionData($user); 
         session_destroy();
         return redirect()->to('/');
     }

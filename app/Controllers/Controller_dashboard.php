@@ -2,6 +2,7 @@
 
 use App\Controllers\BaseController;
 use App\Models\PostModel;
+use App\Models\UserModel;
 
 use PDO;
 
@@ -81,7 +82,22 @@ class Controller_dashboard extends BaseController{
     }
 
     public function retriveProduct() {
-        $session = \Config\Services::session();        
+        $session = session();
+        $userModel = new UserModel();        
+        $email = $session->get('email');
+        $user = $userModel->where('email', $email)->first();
+
+        $ses_data = [
+            'id_user' => $user['id_user'],
+            'username' => $user['username'],
+            'email' => $user['email'],
+            'roles' => $user['roles'],                
+            'isLoggedIn' => TRUE
+        ];       
+
+        $this->updateSessionData($user);
+        // print_r($ses_data);              
+        // exit;
         $idProduct = $this->request->getPost('product_id');
     
         $postModel = new PostModel();        
@@ -89,6 +105,15 @@ class Controller_dashboard extends BaseController{
         // Load the view file         
         $data['productall'] = $postModel->where('id_product', $idProduct)->findAll();
         echo view('product_detail', $data + ['session' => $session]);
-
     }
+
+    public function updateSessionData($user)
+        {
+            $session = session();
+            $roles = $user['roles'];
+            $new_data = [
+                'roles' => $roles
+            ];
+            $session->set($new_data);
+        }
 }

@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\PostModel;
+use App\Models\UserModel;
+// use App\Models\UserModel;
 use Config\Services;
 use App\Controllers\ConfigServices;
 
@@ -11,8 +13,14 @@ use CodeIgniter\Config\Services as CodeIgniterConfigServices;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class PostController extends BaseController{
+
+    
     public function index() {
-        $session = \Config\Services::session();        
+        $session = session();
+        $userModel = new UserModel();
+        $email = $session->get('email');
+        $user = $userModel->where('email', $email)->first();    
+        $this->updateSessionData($user);
 
         // Load the view file
         return view('main_view', ['session' => $session]);
@@ -25,7 +33,11 @@ class PostController extends BaseController{
     }
 
     public function productList(){
-        $session = \Config\Services::session();        
+        $session = session();
+        $userModel = new UserModel();
+        $email = $session->get('email');
+        $user = $userModel->where('email', $email)->first();    
+        $this->updateSessionData($user);      
 
         // Load the view file
         return view('product_list', ['session' => $session]);        
@@ -33,8 +45,9 @@ class PostController extends BaseController{
 
 
     public function productDetail(){
-        $session = \Config\Services::session();        
+        $session = session();        
 
+        
         // Load the view file
         return view('product_detail', ['session' => $session]);        
     }
@@ -194,4 +207,17 @@ class PostController extends BaseController{
             'message' => $post
         ]);
     }
+
+    public function updateSessionData($user){
+        $session = session();
+        if ($user === null) {
+            return;
+        }
+        $roles = $user['roles'];
+        $new_data = [
+            'roles' => $roles
+        ];
+        $session->set($new_data);
+    }
+    
 }
