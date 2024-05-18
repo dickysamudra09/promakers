@@ -74,7 +74,7 @@
             <ul class="navbar-nav ms-auto">
               <li class="nav-item"><a class="nav-link" aria-current="page" style=":nav-item:hover{color:blue}" href="<?= base_url('/') ?>">Beranda</a></li>
               <li class="nav-item"><a class="nav-link" aria-current="page" href="<?= base_url('product-list') ?>">Product</a></li>                                        
-            <?php if (session()->get('username')) : ?>
+              <?php if (session()->get('username')) : ?>
               <li class="nav-item navbar-dropdown dropdown-user dropdown" style="margin-top: -5px;">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                   <div class="avatar avatar-online">
@@ -101,14 +101,34 @@
                     <div class="dropdown-divider"></div>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="#">
+                      <a class="dropdown-item" href="<?php echo base_url('users'); ?>">
                       <i class="bx bx-user me-2"></i>
-                      <span class="align-middle">Dashboard</span>
-                    </a>
-                  </li>
+                      <span class="align-middle">Profile</span>
+                  </a>
                   <li>
-                    <div class="dropdown-divider"></div>
-                  </li>
+                      <div class="dropdown-divider"></div>
+                  </li>                   
+                  <?php if (filter_var($session->get('roles'), FILTER_VALIDATE_INT) == 1) : ?>
+                      <li hidden>
+                          <a class="dropdown-item" href="#">
+                          <i class="bx bx-user me-2"></i>
+                          <span class="align-middle">Dashboard</span>
+                          </a>
+                      </li>
+                      <li hidden>
+                          <div class="dropdown-divider"></div>
+                      </li>                                        
+                  <?php else: ?>
+                      <li>
+                          <a class="dropdown-item" href="<?php echo base_url('Dashboard'); ?>">
+                          <i class="bx bx-user me-2"></i>
+                          <span class="align-middle">Dashboard</span>
+                          </a>
+                      </li>
+                      <li>
+                          <div class="dropdown-divider"></div>
+                      </li>
+                  <?php endif; ?>
                   <li>
                     <a class="dropdown-item" href="<?php echo base_url('logout'); ?>">
                       <i class="bx bx-power-off me-2"></i>

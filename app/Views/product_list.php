@@ -84,14 +84,34 @@
                                     <div class="dropdown-divider"></div>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="<?php echo base_url('users'); ?>">
                                     <i class="bx bx-user me-2"></i>
-                                    <span class="align-middle">Dashboard</span>
-                                    </a>
-                                </li>
+                                    <span class="align-middle">Profile</span>
+                                </a>
                                 <li>
                                     <div class="dropdown-divider"></div>
-                                </li>
+                                </li>                   
+                                <?php if (filter_var($session->get('roles'), FILTER_VALIDATE_INT) == 1) : ?>
+                                    <li hidden>
+                                        <a class="dropdown-item" href="#">
+                                        <i class="bx bx-user me-2"></i>
+                                        <span class="align-middle">Dashboard</span>
+                                        </a>
+                                    </li>
+                                    <li hidden>
+                                        <div class="dropdown-divider"></div>
+                                    </li>                                        
+                                <?php else: ?>
+                                    <li>
+                                        <a class="dropdown-item" href="<?php echo base_url('Dashboard'); ?>">
+                                        <i class="bx bx-user me-2"></i>
+                                        <span class="align-middle">Dashboard</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown-divider"></div>
+                                    </li>
+                                <?php endif; ?>
                                 <li>
                                     <a class="dropdown-item" href="<?php echo base_url('logout'); ?>">
                                     <i class="bx bx-power-off me-2"></i>
