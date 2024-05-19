@@ -154,7 +154,7 @@
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Product List</div>
+                <div data-i18n="Account Settings">List Product</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
@@ -163,7 +163,28 @@
                   </a>
                 </li>
               </ul>
-            </li>            
+            </li>
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Account</span>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="Account Settings">List Account</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="<?= base_url('sellerslist') ?>" class="menu-link">
+                    <div data-i18n="Account">Sellers</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="<?= base_url('buyerslist') ?>" class="menu-link">
+                    <div data-i18n="Account">Users</div>
+                  </a>
+                </li>
+              </ul>
+            </li>                 
           </ul>
         </aside>
         <!-- / Menu -->

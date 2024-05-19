@@ -156,13 +156,13 @@
             <li class="menu-header small text-uppercase">
               <span class="menu-header-text">Product</span>
             </li>
-            <li class="menu-item active open">
+            <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div data-i18n="Account Settings">List Product</div>
               </a>
               <ul class="menu-sub">
-                <li class="menu-item active">
+                <li class="menu-item">
                   <a href="<?= base_url('Product') ?>" class="menu-link">
                     <div data-i18n="Account">All Product</div>
                   </a>
@@ -172,7 +172,7 @@
             <li class="menu-header small text-uppercase">
               <span class="menu-header-text">Account</span>
             </li>
-            <li class="menu-item">
+            <li class="menu-item active open">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div data-i18n="Account Settings">List Account</div>
@@ -183,13 +183,13 @@
                     <div data-i18n="Account">Sellers</div>
                   </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item active">
                   <a href="<?= base_url('buyerslist') ?>" class="menu-link">
                     <div data-i18n="Account">Users</div>
                   </a>
                 </li>
               </ul>
-            </li>            
+            </li>              
           </ul>
         </aside>
         <!-- / Menu -->
@@ -307,23 +307,22 @@
             <!-- Content -->
             
             <div class="container-xxl flex-grow-1 container-p-y">
-                <div class="row">
-                    <div class="col-lg-12 grid-margin stretch-card">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="card-header d-flex justify-content-between align-items-center">
-                                        <div class="text-secondary fw-bold fs-3">All Posts</div>
-                                        <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#add_post_modal">Add New Post</button>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row" id="show_posts">
-                                        <h1 class="text-center text-secondary my-5">Posts Loading..</h1>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            <div class="card">
+                <h5 class="card-header">Hoverable rows</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Username</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="show_posts">
+                    </tbody>
+                  </table>
                 </div>
+              </div>
                 <div class="modal fade" id="add_post_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-lg">
                         <div class="modal-content">
@@ -495,15 +494,43 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
     <script>
-        function fetchAllPosts() {                
+        function fetchAllPosts() {
             $.ajax({
-            url: '<?= base_url('post/fetch') ?>',
-            method: 'get',
-            success: function(response) {
-                $("#show_posts").html(response.message);
-            }
+                url: '<?= base_url('sellers/fetchbuyer') ?>',
+                method: 'get',
+                success: function(response) {
+                    const data = JSON.parse(response);
+                    let html = '';
+                    if (data.message) {
+                        html = `<div class="text-secondary text-center fw-bold my-5">${data.message}</div>`;
+                    } else {
+                        data.forEach(post => {
+                            html += `
+                                <tr>
+                                    <td>${post.username}</td>
+                                    <td><span class="badge bg-label-primary me-1">Active</span></td>
+                                    <td>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="javascript:void(0);"
+                                            ><i class="bx bx-edit-alt me-1"></i> active</a
+                                            >
+                                            <a class="dropdown-item" href="javascript:void(0);"
+                                            ><i class="bx bx-trash me-1"></i> unactive</a
+                                            >
+                                        </div>
+                                    </div>
+                                </tr>
+                            `;
+                        });
+                    }
+                    $('#show_posts').html(html);
+                }
             });
-        }
+        }    
 
         $(function() {
             // add new post ajax request

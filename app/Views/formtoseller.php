@@ -144,7 +144,7 @@
 
               <form action="#" method="POST" enctype="multipart/form-data" id="add_seller_form" novalidate>
                 <input type="hidden" name="id_user" value="<?= session('id_user');?>">                        
-                <input type="hidden" name="username" value="<?= session('username');?>"> 
+                <input type="hidden" name="status" value="pending"> 
                 <div class="mb-3">
                   <label for="email" class="form-label">Username</label>
                   <input type="text" class="form-control form-control" id="username" name="username" placeholder="Username/Email" value="<?= session('username');?>">
