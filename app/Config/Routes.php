@@ -50,6 +50,8 @@ $routes->get('/list-seller', 'Controller_list_seller::index');
 
 // $routes->get('/login', 'Home::login');
 // $routes->get('/register', 'Register::index');
+$routes->get('/sellerslist', 'PostController::sellerslist');
+$routes->get('/buyerslist', 'PostController::buyerslist');
 
 $routes->get('/product-list', 'PostController::productList');
 $routes->post('/product/detail_load', 'Controller_dashboard::retriveProduct');
@@ -63,6 +65,9 @@ $routes->post('postseller/add', 'PostController::addseller');
 
 $routes->post('post/add', 'PostController::add');
 $routes->get('post/fetch', 'PostController::fetch');
+
+$routes->get('sellers/fetchbuyer', 'Controller_dashboard::fetch_buyer');
+$routes->get('sellers/fetch', 'Controller_dashboard::fetch_sellers');
 $routes->get('post/fetch_main', 'Controller_dashboard::fetch_main');
 $routes->get('post/edit/(:num)', 'PostController::edit/$1');
 $routes->get('post/delete/(:num)', 'PostController::delete/$1');
