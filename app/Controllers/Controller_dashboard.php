@@ -81,6 +81,85 @@ class Controller_dashboard extends BaseController{
         echo $data;        
     }
 
+    
+
+    public function fetch_sellers() {
+        $postModel = new UserModel();
+        $status = 'active';
+        $posts = $postModel->where('status', $status)->findAll();
+
+        $data = [];
+
+        if ($posts) {
+            foreach ($posts as $post) {
+                $data[] = [
+                    'namatoko' => $post['namatoko'],
+                    'username' => $post['username'],
+                    'status' => 'Active',
+                    'actions' => '
+                        <div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="javascript:void(0);"
+                                  ><i class="bx bx-edit-alt me-1"></i> Edit</a
+                                >
+                                <a class="dropdown-item" href="javascript:void(0);"
+                                  ><i class="bx bx-trash me-1"></i> Delete</a
+                                >
+                            </div>
+                        </div>
+                    '
+                ];
+            }
+        } else {
+            $data = [
+                'message' => 'No posts found in the database!'
+            ];
+        }
+
+        echo json_encode($data);
+    }
+    public function fetch_buyer() {
+        $postModel = new UserModel();
+        $status = 'pending';
+        $posts = $postModel->where('status', $status)->findAll();
+
+        $data = [];
+
+        if ($posts) {
+            foreach ($posts as $post) {
+                $data[] = [
+                    'namatoko' => $post['namatoko'],
+                    'username' => $post['username'],
+                    'status' => 'Pending',
+                    'actions' => '
+                        <div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="javascript:void(0);"
+                                  ><i class="bx bx-edit-alt me-1"></i> Edit</a
+                                >
+                                <a class="dropdown-item" href="javascript:void(0);"
+                                  ><i class="bx bx-trash me-1"></i> Delete</a
+                                >
+                            </div>
+                        </div>
+                    '
+                ];
+            }
+        } else {
+            $data = [
+                'message' => 'No posts found in the database!'
+            ];
+        }
+
+        echo json_encode($data);
+    }
+    
     public function retriveProduct() {
         $session = session();
         $userModel = new UserModel();        

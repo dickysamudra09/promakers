@@ -24,7 +24,7 @@ class PostController extends BaseController{
 
         // Load the view file
         return view('main_view', ['session' => $session]);
-    }
+    }    
 
     public function products_inds() {   
         $session = session();
@@ -91,12 +91,19 @@ class PostController extends BaseController{
 
         // Load the view file
         return view('formtoseller', ['session' => $session]);   
-    }    
+    }   
+    
+    public function buyerslist() {   
+        $session = session();
+   
+        return view('userslist', ['session' => $session]);
+    }
     public function addseller() {
         
         $id = $this->request->getPost('id_user');
 
         $data = [            
+            'status' => $this->request->getPost('status'), 
             'namatoko' => $this->request->getPost('namatoko'),
             'Provinsi' => $this->request->getPost('Provinsi'),
             'Kota/Kabupaten' => $this->request->getPost('Kota/Kabupaten'),
@@ -167,6 +174,15 @@ class PostController extends BaseController{
                 'message' => 'Successfully added new post!'
             ]);
         }
+    }
+
+
+    public function sellerslist(){
+        $session = session();        
+
+        
+        // Load the view file
+        return view('sellerslist', ['session' => $session]);        
     }
     // handle fetch all posts ajax request
     public function fetch() {
