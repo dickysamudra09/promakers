@@ -174,11 +174,20 @@
                             <div class="tab-content p-0">
                               <div class="tab-pane fade show active" id="list-home">
                                 <div class="card shadow-none bg-transparent border border-info mb-3">
+                                <?php if ($session->get('namatoko') != '') : ?>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Thank You</h5>
+                                        <p class="card-text">Request has been sent please wait with the next few hours!</p>
+                                        <!-- <button type="button" class="btn btn-primary" disabled>Disabled</button> -->
+                                    </div>                          
+                                <?php else: ?>
                                     <div class="card-body">
                                         <h5 class="card-title">Become Seller?</h5>
                                         <p class="card-text">Many advantages. so what are you waiting for, join us immediately!</p>
-                                        <button type="button" class="btn btn-outline-info">Join Now</button>
+                                        <a href="<?= base_url('formtoseller') ?>"><button type="button" class="btn btn-outline-info">Join Now</button></a>
                                     </div>
+                                    
+                                <?php endif; ?>
                                 </div>
                               </div>
                               <div class="tab-pane fade" id="list-profile">
