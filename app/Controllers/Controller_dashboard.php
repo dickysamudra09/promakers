@@ -87,13 +87,13 @@ class Controller_dashboard extends BaseController{
         $email = $session->get('email');
         $user = $userModel->where('email', $email)->first();
 
-        $ses_data = [
-            'id_user' => $user['id_user'],
-            'username' => $user['username'],
-            'email' => $user['email'],
-            'roles' => $user['roles'],                
-            'isLoggedIn' => TRUE
-        ];       
+        // $ses_data = [
+        //     'id_user' => $user['id_user'],
+        //     'username' => $user['username'],
+        //     'email' => $user['email'],
+        //     'roles' => $user['roles'],                
+        //     'isLoggedIn' => TRUE
+        // ];       
 
         $this->updateSessionData($user);
         // print_r($ses_data);              
@@ -107,13 +107,16 @@ class Controller_dashboard extends BaseController{
         echo view('product_detail', $data + ['session' => $session]);
     }
 
-    public function updateSessionData($user)
-        {
-            $session = session();
-            $roles = $user['roles'];
-            $new_data = [
-                'roles' => $roles
-            ];
-            $session->set($new_data);
+    public function updateSessionData($user){
+        $session = session();
+
+        if ($user === null) {
+            return;
         }
+        $roles = $user['roles'];
+        $new_data = [
+            'roles' => $roles
+        ];
+        $session->set($new_data);
+    }
 }

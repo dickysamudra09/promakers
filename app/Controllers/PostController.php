@@ -53,10 +53,84 @@ class PostController extends BaseController{
     }
 
     public function userIndexs(){
-        $session = \Config\Services::session();        
+        $session = session();
+        $userModel = new UserModel();
+        $email = $session->get('email');
+        $user = $userModel->where('email', $email)->first();    
+        // $ses_data = [
+        //     'id_user' => $user['id_user'],
+        //     'username' => $user['username'],
+        //     'email' => $user['email'],
+        //     'namatoko' => $user['namatoko'],                 
+        //     'isLoggedIn' => TRUE
+        // ];
+        // print_r($ses_data);              
+        // exit;
+        // $session->set($ses_data);
+        $this->updateSessionData($user);  
+         
+        return view('users', ['session' => $session]);   
+    }
+
+    public function formtoseller(){
+        $session = session();
+        $userModel = new UserModel();
+        $email = $session->get('email');
+        $user = $userModel->where('email', $email)->first();    
+        // $ses_data = [
+        //     'id_user' => $user['id_user'],
+        //     'username' => $user['username'],
+        //     'email' => $user['email'],
+        //     'namatoko' => $user['namatoko'],                 
+        //     'isLoggedIn' => TRUE
+        // ];
+        // print_r($ses_data);              
+        // exit;
+        // $session->set($ses_data);
+        $this->updateSessionData($user);         
 
         // Load the view file
-        return view('users', ['session' => $session]);   
+        return view('formtoseller', ['session' => $session]);   
+    }    
+    public function addseller() {
+        
+        $id = $this->request->getPost('id_user');
+
+        $data = [            
+            'namatoko' => $this->request->getPost('namatoko'),
+            'Provinsi' => $this->request->getPost('Provinsi'),
+            'Kota/Kabupaten' => $this->request->getPost('Kota/Kabupaten'),
+            'Alamat' => $this->request->getPost('Alamat'),
+            'Nummers' => $this->request->getPost('Nummers'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+        // print_r($data);
+        // exit;
+
+        $session = session();
+        $userModel = new UserModel();
+        $email = $session->get('email');
+        $user = $userModel->where('email', $email)->first();    
+        $ses_data = [
+            'id_user' => $user['id_user'],
+            'username' => $user['username'],
+            'email' => $user['email'],
+            'namatoko' => $user['namatoko'],                 
+            'isLoggedIn' => TRUE
+        ];
+
+        $this->updateSessionData($user);
+        // print_r($ses_data);              
+        // exit;
+
+        $userModel = new UserModel();
+        $userModel->update($id, $data);
+        return $this->response->setJSON([
+            'error' => false,
+            'message' => 'Successfully!'
+        ]);
+
+        
     }
 
     // handle add new post ajax request
@@ -214,8 +288,10 @@ class PostController extends BaseController{
             return;
         }
         $roles = $user['roles'];
+        $namatoko = $user['namatoko'];
         $new_data = [
-            'roles' => $roles
+            'roles' => $roles,
+            'namatoko' => $namatoko,
         ];
         $session->set($new_data);
     }
