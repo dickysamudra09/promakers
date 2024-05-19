@@ -55,9 +55,11 @@ $routes->get('/product-list', 'PostController::productList');
 $routes->post('/product/detail_load', 'Controller_dashboard::retriveProduct');
 $routes->get('/product-detail', 'PostController::productDetail');
 
+$routes->get('/formtoseller', 'PostController::formtoseller');
+
 $routes->get('/users', 'PostController::userIndexs');
 
-
+$routes->post('postseller/add', 'PostController::addseller');
 
 $routes->post('post/add', 'PostController::add');
 $routes->get('post/fetch', 'PostController::fetch');
