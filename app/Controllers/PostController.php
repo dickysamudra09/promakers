@@ -118,13 +118,6 @@ class PostController extends BaseController{
         $userModel = new UserModel();
         $email = $session->get('email');
         $user = $userModel->where('email', $email)->first();    
-        $ses_data = [
-            'id_user' => $user['id_user'],
-            'username' => $user['username'],
-            'email' => $user['email'],
-            'namatoko' => $user['namatoko'],                 
-            'isLoggedIn' => TRUE
-        ];
 
         $this->updateSessionData($user);
         // print_r($ses_data);              
@@ -140,40 +133,110 @@ class PostController extends BaseController{
         
     }
 
+    public function updatestatusUser($id_url) {                    
+        $id = $id_url;
+        $data = [            
+            'roles' => '2',
+            'status' => 'Active',
+        ];
+        // print_r($data);              
+        // exit;
+        $userModel = new UserModel();
+        $userModel->where('id_user', $id)->set($data)->update();
+        return $this->response->setJSON([
+            'error' => false,
+            'message' => 'Successfully!'
+        ]);    
+
+        $session = session();
+        $userModel = new UserModel();
+        $email = $session->get('email');
+        $user = $userModel->where('email', $email)->first();    
+
+        $this->updateSessionData($user);
+    }
+
     // handle add new post ajax request
     public function add() {
-        $file = $this->request->getFile('file');
-        $fileName = $file->getRandomName();
+
+        $file_product = $this->request->getFile('fileData');
+        $thumbnail = $this->request->getFile('thumbnail');
+
+        if ($file_product !== null && $file_product->isValid()) {
+            $file_product_name = $file_product->getRandomName();
+            $file_product->move('uploads/files', $file_product_name);
+        } else {
+            $file_product_name = '';
+        }
+
+        if ($thumbnail !== null && $thumbnail->isValid()) {
+            $file_thumbnail_name = $thumbnail->getRandomName();
+            $thumbnail->move('uploads/avatar', $file_thumbnail_name);
+        } else {
+            $file_thumbnail_name = '';
+        }
 
         $data = [
             'title_product' => $this->request->getPost('title_product'),
             'category_product' => $this->request->getPost('category_product'),
-            'body_product' => $this->request->getPost('body_product'),
+            'singkat_body_product' => $this->request->getPost('singkat_body_product'),
+            'detail_body_product' => $this->request->getPost('detail_body_product'),
+            'harga' => $this->request->getPost('harga'),
+            'file_product' => $file_product_name,        
             'id_user' => $this->request->getPost('id_user'),
             'username' => $this->request->getPost('username'),
-            'image' => $fileName,
+            'thumbnail' => $file_thumbnail_name,
             'created_at' => date('Y-m-d H:i:s')
         ];
         // print_r($data);
+        // exit;
 
-        $validation =  \Config\Services::validation();
-        $validation->setRules([
-            'image' => 'uploaded[file]|max_size[file,1024]|is_image[file]|mime_in[file,image/jpg,image/jpeg,image/png]',
+
+        $postModel = new PostModel();
+        $postModel->save($data);
+
+        return $this->response->setJSON([
+            'error' => false,
+            'message' => 'Successfully added new post!'
         ]);
-        if (!$validation->withRequest($this->request)->run()) {
-            return $this->response->setJSON([
-                'error' => true,
-                'message' => $validation->getErrors()
-            ]);
-        } else {
-            $file->move('uploads/avatar', $fileName);
-            $postModel = new PostModel();
-            $postModel->save($data);
-            return $this->response->setJSON([
-                'error' => false,
-                'message' => 'Successfully added new post!'
-            ]);
-        }
+        // $file = $this->request->getFile('file');
+        // $fileData = $this->request->getFile('fileData');
+        // $fileName = $file->getRandomName();
+        // $fileNameFile = $fileData->getRandomName();
+
+        // $data = [
+        //     'title_product' => $this->request->getPost('title_product'),
+        //     'category_product' => $this->request->getPost('category_product'),
+        //     'singkat_body_product' => $this->request->getPost('singkat_body_product'),
+        //     'detail_body_product' => $this->request->getPost('detail_body_product'),
+        //     'harga' => $this->request->getPost('harga'),
+        //     'file_product' => $fileName,
+        //     'id_user' => $this->request->getPost('id_user'),
+        //     'username' => $this->request->getPost('username'),
+        //     'image' => $fileName,
+        //     'created_at' => date('Y-m-d H:i:s')
+        // ];
+        // // print_r($data);
+
+        // $validation =  \Config\Services::validation();
+        // $validation->setRules([
+        //     'image' => 'uploaded[file]|max_size[file,1024]|is_image[file]|mime_in[file,image/jpg,image/jpeg,image/png]',            
+        // ]);
+        // if (!$validation->withRequest($this->request)->run()) {
+        //     return $this->response->setJSON([
+        //         'error' => true,
+        //         'message' => $validation->getErrors()
+        //     ]);
+        // } else {
+        //     $file->move('uploads/avatar', $fileName);
+        //     $fileData->move('uploads/avatar', $fileNameFile);
+        //     $postModel = new PostModel();
+        //     $postModel->save($data);
+        //     return $this->response->setJSON([
+        //         'error' => false,
+        //         'message' => 'Successfully added new post!'
+        //     ]);
+        // }
     }
 
 
@@ -199,14 +262,16 @@ class PostController extends BaseController{
             foreach ($posts as $post) {                
                 $data .= '<div class="col-md-4">
                 <div class="card shadow-sm">
-                  <a href="#" id="' . $post['id_product'] . '" data-bs-toggle="modal" data-bs-target="#detail_post_modal" class="post_detail_btn"><img src="uploads/avatar/' . $post['image'] . '" class="img-fluid card-img-top"/></a>
+                  <a href="#" id="' . $post['id_product'] . '" data-bs-toggle="modal" data-bs-target="#detail_post_modal" class="post_detail_btn"><img src="uploads/avatar/' . $post['thumbnail'] . '" class="img-fluid card-img-top" style="width: 100%;
+                  height: 15vw;
+                  object-fit: cover;"/></a>
                   <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                       <div class="card-title fs-5 fw-bold">' . $post['title_product'] . '</div>
                       <div class="badge bg-dark">' . $post['category_product'] . '</div>
                     </div>
                     <p>
-                      ' . substr($post['body_product'], 0, 80) . '...
+                      ' . substr($post['singkat_body_product'], 0, 80) . '...
                     </p>
                   </div>
                   <div class="card-footer d-flex justify-content-between align-items-center">
@@ -247,27 +312,37 @@ class PostController extends BaseController{
     // handle update post ajax request
     public function update() {
         $id = $this->request->getPost('id_product');
-        $file = $this->request->getFile('file');
-        $fileName = $file->getFilename();
 
-        if ($fileName != '') {
+        $file = $this->request->getFile('fileData');
+        $thumbnail = $this->request->getFile('thumbnail');
+
+        $fileData = $this->request->getPost('old_fileData');
+        $thumbnailData = $this->request->getPost('old_thumbnail');
+
+        // Jika ada file baru, upload file baru
+        if ($file->getSize() > 0) {
             $fileName = $file->getRandomName();
-            $file->move('uploads/avatar', $fileName);
-            if ($this->request->getPost('old_image') != '') {
-                unlink('uploads/avatar/' . $this->request->getPost('old_image'));
-            }
-        } else {
-            $fileName = $this->request->getPost('old_image');
+            $file->move('uploads/files', $fileName);
+            $fileData = $fileName;
         }
 
+        // Jika ada thumbnail baru, upload thumbnail baru
+        if ($thumbnail->getSize() > 0) {
+            $fileNamethumbnail = $thumbnail->getRandomName();
+            $thumbnail->move('uploads/avatar', $fileNamethumbnail);
+            $thumbnailData = $fileNamethumbnail;
+        }
         $data = [
             'title_product' => $this->request->getPost('title_product'),
             'category_product' => $this->request->getPost('category_product'),
-            'body_product' => $this->request->getPost('body_product'),
-            'image' => $fileName,
+            'ingkat_body_product' => $this->request->getPost('singkat_body_product'),
+            'detail_body_product' => $this->request->getPost('detail_body_product'),
+            'harga' => $this->request->getPost('harga'),
+            'file_product' => $fileData,
+            'thumbnail' => $thumbnailData,
             'updated_at' => date('Y-m-d H:i:s')
         ];
-
+    
         $postModel = new PostModel();
         $postModel->update($id, $data);
         return $this->response->setJSON([
@@ -281,7 +356,8 @@ class PostController extends BaseController{
         $postModel = new PostModel();
         $post = $postModel->find($id);
         $postModel->delete($id);
-        unlink('uploads/avatar/' . $post['image']);
+        unlink('uploads/avatar/' . $post['thumbnail']);
+        unlink('uploads/files/' . $post['file_product']);
         return $this->response->setJSON([
             'error' => false,
             'message' => 'Successfully deleted post!'

@@ -43,30 +43,30 @@ class Controller_dashboard extends BaseController{
                 $data .= '
                 <div class="col-md-6 col-lg-3 mb-3">
                         <div class="card">
-                            <img class="card-img-top" src="/uploads/avatar/' . $post['image'].'" alt="Card image cap" style="width: 100%;
-                            height: 15vw;
+                            <img class="card-img-top" src="/uploads/avatar/' . $post['thumbnail'].'" alt="Card image cap" style="width: 100%;
+                            height: 20vw;
                             object-fit: cover;" />
-                            <div class="card-body">
-                                <h2 class="card-title">' . $post['id_product'] . '</h2>
-                                <h2 class="card-title">' . $post['title_product'] . '</h2>
+                            <div class="card-body" >
+                                <h3 class="card-title" hidden>' . $post['id_product'] . '</h3>
+                                <h4 class="card-title">' . substr($post['title_product'], 0, 15) . '</h4>
                                 <p class="card-text">
-                                    ' . $post['body_product'] . '
+                                    ' . substr($post['singkat_body_product'], 0, 50) . '...
                                 </p>
                                 <div class="border-bottom"></div><br>
                                 <div class="row">
                                     <div class="col-7">
-                                        <h1 class="card-title" style="color: green;">$18.00</h1>
+                                        <h1 class="card-title" style="color: #6F4E37;">' . number_format($post['harga'], 0, ',', '.') . '</h1>
                                         <small class="text-muted">By ' . $post['username'] . '</small>                                        
                                     </div>
                                     <div class="col-3">
                                         <form action="' . base_url('/product/detail_load') . '" method="post">
                                             <input type="hidden" name="product_id" value="' .$post['id_product'] . '">
                                             <button type="submit" class="btn btn-primary btn-xs" data-bs-toggle="tooltip"
-                                            data-bs-offset="0,4"
+                                            data-bs-offset="0,1"
                                             data-bs-placement="bottom"
                                             data-bs-html="true"
-                                            title="Download">
-                                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAbFJREFUSEvNlT+oTnEYxz+fsBgY1FUMUsogk4G73AyMFqUMSsmfQrHIeO8oWSTKjRSDslhslDIIg4WJkaIri6JMX+d3O+d27ut97zl679V9ltP5nec8n+f7PM95jqywucLx+X+AJKnV/ATuqheWQ92CghagiXtQfTYu5K8SJbkMXAGeqIeGAZpk1M4SDwNsAr4Ca4Bt6qdByFiAEizJA+AYcFUtihbZcgAmgZfAd2Cr+rtNGBtQq3gP7AKOq/eT3AZOj2j6rHomyQ3gPHBdvVh8RzYpSQlWgr5R9yZZB7wA9g1AXgFT9dk3YCOwU/3QBVgPfAE2AHvUt0kmgHdAuRabA3arc0mOVoEfAq/VhSSWHLOW5Hvqibp05eWipNiUWhSUwXgKHABOqXcalV2AHcBHoDR5Qv1RB5vvhTpb328BPgO/gM1q2Qbz1vmhJHkO7AcuqdeGNbnaMjOViOl6xZxs+/QBHAEejZiewePJpmT/omAtUCZiewfksXp40KdTQc/MR7r1AiS5WY3k2arRt9Rz7WhLPevV5HpKmn9FmZxFSbXX/LDtujoUjNOHXgpWNeAPkxeqGWldSwsAAAAASUVORK5CYII="/>
+                                            title="View">
+                                            <img src="' . base_url('mywebs/backends/assets/img/logos/eye.png') . '"/>
                                             </button>
                                         </form>                                      
                                     </div>
@@ -131,6 +131,7 @@ class Controller_dashboard extends BaseController{
         if ($posts) {
             foreach ($posts as $post) {
                 $data[] = [
+                    'id_user' => $post['id_user'],
                     'namatoko' => $post['namatoko'],
                     'username' => $post['username'],
                     'status' => 'Pending',

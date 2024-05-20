@@ -37,6 +37,7 @@ class Register extends BaseController
                 'email'    => $this->request->getVar('email'),
                 'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
                 'roles'    => $this->request->getVar('roles'),
+                'status'    => 'pending',
                 'created_at' => date('Y-m-d H:i:s')            
             ];
             $model->save($data);
