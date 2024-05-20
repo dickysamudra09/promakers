@@ -7,7 +7,7 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\UserModel;
  
-class AuthFilter implements FilterInterface
+class RoleFilter implements FilterInterface
 {
     /**
      * Do whatever processing this filter needs to do.
@@ -26,10 +26,12 @@ class AuthFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        if (!session()->get('isLoggedIn'))
-        {
-            return redirect()->to('/login');
-        }        
+        $userModel = new UserModel();
+        $user = $userModel->where('id', session('id_user'))->first();
+
+        if ($user['roles'] != 2) {
+            return redirect()->to('/');
+        }
     }
  
     /**
@@ -46,11 +48,6 @@ class AuthFilter implements FilterInterface
      */
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
-        $userModel = new UserModel();
-        $user = $userModel->where('id_user', session('id_user'))->first();
-
-        if ($user['roles'] != 2) {
-            return redirect()->to('/');
-        }
+        //
     }
 }

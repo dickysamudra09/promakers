@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>Makers | All documents are here</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -61,7 +61,7 @@
                             <li class="nav-item navbar-dropdown dropdown-user dropdown" style="margin-top: -5px;">
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                                 <div class="avatar avatar-online">
-                                    <img src="<?= base_url('mywebs/admins/assets/img/avatars/1.png') ?>" alt class="w-px-40 h-auto rounded-circle" width="30" />
+                                    <img src="<?= base_url('mywebs/backends/assets/img/logos/profile.png') ?>" alt class="w-px-40 h-auto rounded-circle" width="30" />
                                 </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
@@ -70,7 +70,7 @@
                                     <div class="d-flex">
                                         <div class="flex-shrink-0 me-3">
                                         <div class="avatar avatar-online">
-                                            <img src="<?= base_url('mywebs/admins/assets/img/avatars/1.png') ?>" alt class="w-px-40 h-auto rounded-circle" width="30" />
+                                            <img src="<?= base_url('mywebs/backends/assets/img/logos/profile.png') ?>" alt class="w-px-40 h-auto rounded-circle" width="30" />
                                         </div>
                                         </div>
                                         <div class="flex-grow-1">
@@ -142,10 +142,45 @@
                 <h1 class="fs-9 fw-bold mb-4 text-center border-bottom py-7">Our Products <br class="d-none d-xl-block" /><p></p></h1><br>
                     <div class="row" id="show_posts">
                                                                  
-                    </div><br><br><br>
-                <div class="text-center"><a class="btn btn-primary" href="#!" role="button">SIGN UP NOW</a></div>
+                    </div><br><br><br>                
                 </div><!-- end of .container-->
 
+            </section>
+            <section class="pb-2 pb-lg-5">
+                <div class="container">
+                    <div class="row border-top border-top-secondary pt-7">          
+                        <div class="col-lg-3 col-md-6 mb-4 mb-md-6 mb-lg-0 mb-sm-2 order-1 order-md-1 order-lg-1"><img class="mb-4" src="<?= base_url('mywebs/backends/assets/img/logos/makers -2.png') ?>" width="60"  style="margin-top:10px;" alt="" /><img class="mb-4" src="<?= base_url('mywebs/backends/assets/img/logos/makers title.png') ?>" width="120" alt="" /></div>
+                        <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 order-3 order-md-3 order-lg-2">
+                        <p class="fs-2 mb-lg-4">Quick Links</p>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-1"><a class="link-900 text-secondary text-decoration-none" href="#!">About us</a></li>
+                                <li class="mb-1"><a class="link-900 text-secondary text-decoration-none" href="#!">Blog</a></li>
+                                <li class="mb-1"><a class="link-900 text-secondary text-decoration-none" href="#!">Contact</a></li>
+                                <li class="mb-1"><a class="link-900 text-secondary text-decoration-none" href="#!">FAQ</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 order-4 order-md-4 order-lg-3">
+                            <p class="fs-2 mb-lg-4">Legal stuff</p>
+                            <ul class="list-unstyled mb-0">                
+                                <li class="mb-1"><a class="link-900 text-secondary text-decoration-none" href="#!">Privacy Policy</a></li>
+                                <li class="mb-1"><a class="link-900 text-secondary text-decoration-none" href="#!">Terms of Service</a></li>
+                            </ul>
+                        </div>            
+                    </div>
+                </div>
+            </section>
+            <section class="text-center py-0">
+                <div class="container">
+                    <div class="container border-top py-3">
+                        <div class="row justify-content-between">
+                            <div class="col-12 col-md-auto mb-1 mb-md-0">
+                                <p class="mb-0">&copy; 2024</p>
+                            </div>
+                            <div class="col-12 col-md-auto">                
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
         </main>
 

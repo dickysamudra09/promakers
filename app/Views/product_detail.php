@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>Makers | All documents are here</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -61,7 +61,7 @@
                             <li class="nav-item navbar-dropdown dropdown-user dropdown" style="margin-top: -5px;">
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                                 <div class="avatar avatar-online">
-                                    <img src="<?= base_url('mywebs/admins/assets/img/avatars/1.png') ?>" alt class="w-px-40 h-auto rounded-circle" width="30" />
+                                    <img src="<?= base_url('mywebs/backends/assets/img/logos/profile.png') ?>" alt class="w-px-40 h-auto rounded-circle" width="30" />
                                 </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
@@ -70,7 +70,7 @@
                                     <div class="d-flex">
                                         <div class="flex-shrink-0 me-3">
                                         <div class="avatar avatar-online">
-                                            <img src="<?= base_url('mywebs/admins/assets/img/avatars/1.png') ?>" alt class="w-px-40 h-auto rounded-circle" width="30" />
+                                            <img src="<?= base_url('mywebs/backends/assets/img/logos/profile.png') ?>" alt class="w-px-40 h-auto rounded-circle" width="30" />
                                         </div>
                                         </div>
                                         <div class="flex-grow-1">
@@ -137,10 +137,11 @@
                 <div class="container">
                 <?php foreach($productall as $rowpro): ?> 
                     <div class="row align-items-center">
-                        <div class="col-md-6 text-end"><img class="pt-7 pt-md-0 img-fluid" src="<?= base_url() . "/uploads/avatar/" . $rowpro['image']; ?>"></div>
+                        <div class="col-md-6 text-end"><img class="pt-7 pt-md-0 img-fluid" src="<?= base_url() . "/uploads/avatar/" . $rowpro['thumbnail']; ?>"></div>
                             <div class="col-md-6 text-md-start text-center py-6">
-                            <h1 class="mb-4 fs-9 fw-bold"><?= $rowpro['title_product'] ?></h1>
-                            <p class="mb-6 lead text-secondary">Document, Audio, video & many more<br class="d-none d-xl-block" />We provide easy and quick access to a comprehensive collection of the latest scholarly documents, journals and e-books to meet your research needs</p>
+                            <h1><?= $rowpro['title_product'] ?></h1>
+                            <p class="mb-6 lead text-secondary"><?= $rowpro['singkat_body_product'] ?></p>
+                            <h3 class="mb-4">Rp<?= number_format($rowpro['harga'], 0, ',', '.') ?></h3>
                             <div class="text-center text-md-start">
                                 <button type="button" class="btn btn-outline-primary">
                                     <span class="tf-icons bx bx-pie-chart-alt"></span>&nbsp; Download
@@ -172,7 +173,7 @@
                                 aria-controls="navs-pills-top-home"
                                 aria-selected="true"
                             >
-                                Home
+                                Detail Product
                             </button>
                             </li>
                             <li class="nav-item">
@@ -185,7 +186,7 @@
                                 aria-controls="navs-pills-top-profile"
                                 aria-selected="false"
                             >
-                                Profile
+                                Review
                             </button>
                             </li>
                             <li class="nav-item">
@@ -198,20 +199,15 @@
                                 aria-controls="navs-pills-top-messages"
                                 aria-selected="false"
                             >
-                                Messages
+                                Profile
                             </button>
                             </li>
                         </ul>
+                        <?php foreach($productall as $rowpro): ?>
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="navs-pills-top-home" role="tabpanel">
                             <p>
-                                Icing pastry pudding oat cake. Lemon drops cotton candy caramels cake caramels sesame snaps
-                                powder. Bear claw candy topping.
-                            </p>
-                            <p class="mb-0">
-                                Tootsie roll fruitcake cookie. Dessert topping pie. Jujubes wafer carrot cake jelly. Bonbon
-                                jelly-o jelly-o ice cream jelly beans candy canes cake bonbon. Cookie jelly beans marshmallow
-                                jujubes sweet.
+                                <?= $rowpro['detail_body_product'] ?>
                             </p>
                             </div>
                             <div class="tab-pane fade" id="navs-pills-top-profile" role="tabpanel">
@@ -235,8 +231,9 @@
                                 roll icing sesame snaps caramels danish toffee. Brownie biscuit dessert dessert. Pudding jelly
                                 jelly-o tart brownie jelly.
                             </p>
-                            </div>
+                            </div>                            
                         </div>
+                        <?php endforeach ?>
                     </div>
                 </div>
             </div>      
@@ -291,6 +288,42 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>  
+        <section class="pb-2 pb-lg-5">
+            <div class="container">
+            <div class="row border-top border-top-secondary pt-7">          
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-6 mb-lg-0 mb-sm-2 order-1 order-md-1 order-lg-1"><img class="mb-4" src="<?= base_url('mywebs/backends/assets/img/logos/makers -2.png') ?>" width="60"  style="margin-top:10px;" alt="" /><img class="mb-4" src="<?= base_url('mywebs/backends/assets/img/logos/makers title.png') ?>" width="120" alt="" /></div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 order-3 order-md-3 order-lg-2">
+                <p class="fs-2 mb-lg-4">Quick Links</p>
+                <ul class="list-unstyled mb-0">
+                    <li class="mb-1"><a class="link-900 text-secondary text-decoration-none" href="#!">About us</a></li>
+                    <li class="mb-1"><a class="link-900 text-secondary text-decoration-none" href="#!">Blog</a></li>
+                    <li class="mb-1"><a class="link-900 text-secondary text-decoration-none" href="#!">Contact</a></li>
+                    <li class="mb-1"><a class="link-900 text-secondary text-decoration-none" href="#!">FAQ</a></li>
+                </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 order-4 order-md-4 order-lg-3">
+                <p class="fs-2 mb-lg-4">Legal stuff</p>
+                <ul class="list-unstyled mb-0">                
+                    <li class="mb-1"><a class="link-900 text-secondary text-decoration-none" href="#!">Privacy Policy</a></li>
+                    <li class="mb-1"><a class="link-900 text-secondary text-decoration-none" href="#!">Terms of Service</a></li>
+                </ul>
+                </div>            
+            </div>
+            </div>
+        </section>
+        <section class="text-center py-0">
+            <div class="container">
+            <div class="container border-top py-3">
+                <div class="row justify-content-between">
+                <div class="col-12 col-md-auto mb-1 mb-md-0">
+                    <p class="mb-0">&copy; 2024</p>
+                </div>
+                <div class="col-12 col-md-auto">                
+                </div>
+                </div>
+            </div>
             </div>
         </section>                
         </main>
