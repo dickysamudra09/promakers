@@ -12,7 +12,7 @@ class PostModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id_product','title_product', 'category_product', 'body_product', 'id_user', 'username', 'image', 'created_at','updated_at'];
+    protected $allowedFields    = ['id_product','title_product', 'category_product', 'singkat_body_product', 'detail_body_product', 'harga', 'file_product', 'id_user', 'username', 'thumbnail', 'created_at','updated_at'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
