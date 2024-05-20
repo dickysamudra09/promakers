@@ -66,6 +66,8 @@ $routes->post('postseller/add', 'PostController::addseller');
 $routes->post('post/add', 'PostController::add');
 $routes->get('post/fetch', 'PostController::fetch');
 
+$routes->match(['get', 'post'], 'updatestatusUser/(:num)', 'PostController::updatestatusUser/$1');
+
 $routes->get('sellers/fetchbuyer', 'Controller_dashboard::fetch_buyer');
 $routes->get('sellers/fetch', 'Controller_dashboard::fetch_sellers');
 $routes->get('post/fetch_main', 'Controller_dashboard::fetch_main');
